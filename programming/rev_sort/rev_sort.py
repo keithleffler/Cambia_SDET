@@ -8,9 +8,13 @@ logging.basicConfig(level=logging.INFO)
 
 
 class codeException(Exception):
-    # TODO: Add docstring.
-    # TODO: Add boilerplate code-assertion message
-    pass
+    '''
+    Exception class to handle assertions in code, as opposed to other types of issues.
+    '''
+
+    def __init__(self,method,msg,*args,**kwargs):
+        msg = 'Code exception: method: %s: %s' % (method,msg)
+        Exception.__init__(self,msg,*args,**kwargs)
 
 
 class inputException(Exception):
