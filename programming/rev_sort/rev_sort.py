@@ -1,4 +1,3 @@
-
 import logging
 
 '''
@@ -7,26 +6,46 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 
-class codeException(Exception):
+class _custonException(Exception):
+    pass
+
+
+class codeException(_custonException):
     '''
     Exception class to handle assertions in code, as opposed to other types of issues.
     '''
 
-    def __init__(self,method,msg,*args,**kwargs):
-        msg = 'Code exception: method: %s: %s' % (method,msg)
-        Exception.__init__(self,msg,*args,**kwargs)
+    def __init__(self, method, msg, *args, **kwargs):
+        msg = 'Code exception: method: %s: %s' % (method, msg)
+        _custonException.__init__(self, msg, *args, **kwargs)
 
 
-class inputException(Exception):
-    # TODO: And  docstring
-    # TODO: Add boilerplate input-problem message
-    pass
+class inputException(_custonException):
+    '''
+    Exception class to handle problems with the input file.
+    '''
+
+    def __init__(self, filename, msg, *args, **kwargs):
+        msg = 'Input exception: file: %s: %s' % (filename, msg)
+        _custonException.__init__(self, msg, *args, **kwargs)
+
+
+class outputException(_custonException):
+    '''
+    Exception class to handle problems with the output file / path
+    '''
+
+    def __init__(self, filename, msg, *args, **kwargs):
+        msg = 'Output exception: file: %s: %s' % (filename, msg)
+        _custonException.__init__(self, msg, *args, **kwargs)
+
 
 def check_input_file(filename):
     # TODO: Write a function to check existence of input file.
     #  Raise an exception if not OK
 
     return True
+
 
 def check_output_path(filename):
     # TODO: Write a function to check that output is possible.
@@ -37,12 +56,19 @@ def check_output_path(filename):
 
     return True
 
+
 def get_args():
-    # TODO: Add docstring
+    """
+    Return the input and output files.  For this assignment, these are
+    fixed, but a these likely would be command line arguments in the real world.
+    It would be simple to include and argument parser instance to get these.
+    The method calls checks on the validity of the input and output files before returning.
+    :return:
+    """
     try:
 
-        args = {'infile':'./input.csv',
-                'outfile':'./output.csv'}
+        args = {'infile': './input.csv',
+                'outfile': './output.csv'}
 
         check_input_file(args['infile'])
         check_output_path(args['outfile'])
@@ -65,7 +91,7 @@ def get_input(infile):
     try:
         assert False
     except Exception as e:
-        raise codeException('Code assertion, method get_input: %s'%e)
+        raise codeException('Code assertion, method get_input: %s' % e)
 
 
 def rev_sort(s):
@@ -75,9 +101,9 @@ def rev_sort(s):
     :return: A CSV string, with the elements of the input CSV sorted in descending order
     '''
 
-    def clean_up(s):  # TODO: expand the set of problematic substrings.  Remove leading spaces.  Preserve internal space.
+    def clean_up(
+            s):  # TODO: expand the set of problematic substrings.  Remove leading spaces.  Preserve internal space.
         pass
-
 
     def do_sort(s):
         pass
