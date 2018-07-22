@@ -2,6 +2,8 @@ import getpass
 import logging
 import os
 from os.path import dirname, abspath
+import re
+
 
 '''
 '''
@@ -9,47 +11,47 @@ from os.path import dirname, abspath
 logging.basicConfig(level=logging.INFO)
 
 
-class _custonException(Exception):
+class _customException(Exception):
     pass
 
 
-class notImplemented(_custonException):
+class notImplemented(_customException):
     '''
     Exception class to create not-implemented failures during TDD. Helps avoid developer head-scratching and overall confusion.
     '''
 
     def __init__(self, method, *args, **kwargs): # pragma: no cover
         msg = 'Method %s not implemented, but was called anyway.  Please implement.' % method
-        _custonException.__init__(self, msg, *args, **kwargs)
+        _customException.__init__(self, msg, *args, **kwargs)
 
 
-class codeException(_custonException):
+class codeException(_customException):
     '''
     Exception class to handle assertions in code, as opposed to other types of issues.
     '''
 
     def __init__(self, method, msg, *args, **kwargs):
         msg = 'Code exception: method: %s: %s' % (method, msg)
-        _custonException.__init__(self, msg, *args, **kwargs)
+        _customException.__init__(self, msg, *args, **kwargs)
 
 
-class inputException(_custonException):
+class inputException(_customException):
     '''
     Exception class to handle problems with the input file.
     '''
 
     def __init__(self, filename, msg, *args, **kwargs):
         msg = 'Input exception: file: %s: %s' % (filename, msg)
-        _custonException.__init__(self, msg, *args, **kwargs)
+        _customException.__init__(self, msg, *args, **kwargs)
 
-class outputException(_custonException):
+class outputException(_customException):
     '''
     Exception class to handle problems with the output file / path
     '''
 
     def __init__(self, filename, msg, *args, **kwargs):
         msg = 'Output exception: file: %s: %s' % (filename, msg)
-        _custonException.__init__(self, msg, *args, **kwargs)
+        _customException.__init__(self, msg, *args, **kwargs)
 
 
 def check_input_file(filename):
@@ -169,16 +171,17 @@ def rev_sort(s):
     :return: A CSV string, with the elements of the input CSV sorted in descending order
     '''
 
-    def preprocess(
-            s):  # TODO: expand the set of problematic substrings.  Remove leading spaces.  Preserve internal space.
+    def preprocess(s):  # TODO: expand the set of problematic substrings.  Remove leading spaces.  Preserve internal space.
+
         raise notImplemented('rev_sort.preprocess')
 
     def do_sort(s):
-        raise notImplemented('rev_sort.do_sort')
+        _s = ','.join(sorted(s.split(','),reverse=True))
+        return _s
 
     def post_process(s):
         assert s is not None, 'Parameter s is None in rev_sort.post_process.'
-        _s = '%s\n' % s
+        _s = ['%s\n' % s]
         return _s
 
     try:
@@ -226,10 +229,16 @@ def write_output(outfile, data):
 def main():
     # TODO: Add docstring
     try:
-        raise notImplemented('main')
+        data = {'in':[],'out':[]}
+        args = get_args()
+        data['in'] =  get_input(args['infile'])
+        data['out'] = rev_sort(data['in'])
 
-    except codeException as c:
-        logging.debug('Code exception %s' % c)
+        write_output(args['outfile',data['out']])
+
+
+    except _customException as c:
+        logging.info('Error occurred: %s' % c)
 
     except Exception as e:
         logging.fatal('Unexpected program error %s' % e)
