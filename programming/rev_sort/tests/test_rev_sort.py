@@ -178,8 +178,23 @@ class test_get_input(_ioTestCase):
 
 
 class test_rev_sort(unittest.TestCase):
+    def setUp(self):
+        self.expected = ['Oslo,Helsinki,Copenhagen\n']
+
     def test_happy_path(self):
-        self.fail('Not implemented')
+
+        data_in = {'ok':['Helsinki,Oslo,Copenhagen\n'],
+                   'leading spaces':[' Helsinki, Oslo, Copenhagen \n'] #,
+                   #'trailing spaces':['Helskinki ,Oslo ,Copenhagen\n']
+                   }
+
+        for casename,data in data_in.items():
+            data_out = rev_sort.rev_sort(data)
+            errmsg = 'Error in case %s, expected = %s, output = %s'%(casename,self.expected,data_out)
+            self.assertTrue(data_out == self.expected,errmsg)
+
+
+
 
 
 @mock.patch('__builtin__.open')

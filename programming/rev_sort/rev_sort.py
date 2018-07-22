@@ -4,7 +4,6 @@ import os
 from os.path import dirname, abspath
 import re
 
-
 '''
 '''
 
@@ -20,7 +19,7 @@ class notImplemented(_customException):
     Exception class to create not-implemented failures during TDD. Helps avoid developer head-scratching and overall confusion.
     '''
 
-    def __init__(self, method, *args, **kwargs): # pragma: no cover
+    def __init__(self, method, *args, **kwargs):  # pragma: no cover
         msg = 'Method %s not implemented, but was called anyway.  Please implement.' % method
         _customException.__init__(self, msg, *args, **kwargs)
 
@@ -44,6 +43,7 @@ class inputException(_customException):
         msg = 'Input exception: file: %s: %s' % (filename, msg)
         _customException.__init__(self, msg, *args, **kwargs)
 
+
 class outputException(_customException):
     '''
     Exception class to handle problems with the output file / path
@@ -62,28 +62,32 @@ def check_input_file(filename):
     :return: True if all checks succeed.  Otherwise raise an exception.
     """
 
-    def check_existence():  # TODO: complete this function
-        '''
-        Check that the input file exists
-        :return: True
-        '''
+    def check_existence():
+
         if not (os.path.isfile(filename)):
             raise inputException(filename, ' cannot be found.')
         return True
 
-    def check_is_readable():  # TODO: and also complete this one.
+    def check_is_readable():
         '''
         Check that the input file is readable
         :return:
         '''
+
         if not (os.access(filename, os.R_OK)):
             raise inputException(filename, ' is not readable by user %s' % getpass.getuser())
         return True
 
-    check_existence()
-    check_is_readable()
+    try:
+        check_existence()
+        check_is_readable()
 
-    return True
+        return True
+
+    except inputException:
+        raise
+    except Exception as e:
+        raise codeException('check_input', e)
 
 
 def check_output_path(filename):
@@ -101,18 +105,24 @@ def check_output_path(filename):
     def check_is_writable(path):
 
         if os.path.exists(filename):
-            writeable = os.access(filename,os.W_OK)
-            if not(writeable):
-                raise outputException(filename,'  exists but is not writeable by user %s' % getpass.getuser())
+            writeable = os.access(filename, os.W_OK)
+            if not (writeable):
+                raise outputException(filename, '  exists but is not writeable by user %s' % getpass.getuser())
 
         if not (os.access(path, os.W_OK)):
             raise outputException(path, ' is not writable by user %s' % getpass.getuser())
         return True
 
-    _path = filename.rsplit('/', 1)[0]
-    check_exists(_path)
-    check_is_writable(_path)
-    return True
+    try:
+        _path = filename.rsplit('/', 1)[0]
+        check_exists(_path)
+        check_is_writable(_path)
+        return True
+
+    except outputException:
+        raise
+    except Exception as e:
+        raise
 
 
 def get_args():
@@ -143,7 +153,7 @@ def get_input(infile):
     :return:
     '''
 
-    # TODO - Add check that file is only one line.
+
     # Fail if this isn't so.
     def check_data_is_valid(data):
         if not (isinstance(data, list) and len(data) == 1):
@@ -158,7 +168,10 @@ def get_input(infile):
         f.close()
 
         check_data_is_valid(data)
-        return data[0][:-1]
+        return data
+
+    except inputException:
+        raise
 
     except Exception as e:
         raise codeException('get_input', e)
@@ -171,18 +184,36 @@ def rev_sort(s):
     :return: A CSV string, with the elements of the input CSV sorted in descending order
     '''
 
-    def preprocess(s):  # TODO: expand the set of problematic substrings.  Remove leading spaces.  Preserve internal space.
+    def preprocess(s):
+        try:
+            regexs = {'\,\s+': ',',     #leading space
+                      '(\S)\s+,': '\g<1>,'  # trailing space
+                      }
 
-        raise notImplemented('rev_sort.preprocess')
+            _s = s[0][:-1]          # get string from list, and remove the trailing \n
+            _s = _s.lstrip().rstrip()
+            for regex, subst in regexs.items():
+                _s = re.sub(regex, subst, _s)
+
+            return _s
+        except Exception as e:
+            raise codeException('rev_sort.preprocess', e)
 
     def do_sort(s):
-        _s = ','.join(sorted(s.split(','),reverse=True))
-        return _s
+        try:
+            _s = ','.join(sorted(s.split(','), reverse=True))
+            return _s
+        except Exception as e:
+            raise codeException('rev_sort.do_sort', e)
 
     def post_process(s):
-        assert s is not None, 'Parameter s is None in rev_sort.post_process.'
-        _s = ['%s\n' % s]
-        return _s
+        try:
+            assert s is not None, 'Parameter s is None in rev_sort.post_process.'
+            _s = ['%s\n' % s]
+            return _s
+
+        except Exception as e:
+            raise codeException('rev_sort.post_process')
 
     try:
         _s = preprocess(s)
@@ -201,24 +232,25 @@ def write_output(outfile, data):
     :param data:
     :return:
     '''
-    # TODO - Add check that file is only one line.
-    # Fail if this isn't so.
+
+
+
     def check_data_is_valid(data):
         if not (isinstance(data, list)):
-            raise codeException('write_output', ' data is not a list. data = %s'%data)
+            raise codeException('write_output', ' data is not a list. data = %s' % data)
 
-        if not (len(data)==1):
-            raise codeException('write_output', ' data should be a 1-element list. data = %s'%data)
+        if not (len(data) == 1):
+            raise codeException('write_output', ' data should be a 1-element list. data = %s' % data)
 
         if not (data[0][-1] == '\n'):
-            raise codeException('write_output', ' string is expected to be terminated with a newline. string = %s'%data[0])
-
+            raise codeException('write_output',
+                                ' string is expected to be terminated with a newline. string = %s' % data[0])
 
     try:
         check_output_path(outfile)
         check_data_is_valid(data)
 
-        f = open('outfile','r')
+        f = open(outfile, 'w')
         f.writelines(data)
         f.close()
 
@@ -227,14 +259,17 @@ def write_output(outfile, data):
 
 
 def main():
-    # TODO: Add docstring
+    '''
+    Main function for reverse sorting exercise.
+    :return:
+    '''
     try:
-        data = {'in':[],'out':[]}
+        data = {'in': [], 'out': []}
         args = get_args()
-        data['in'] =  get_input(args['infile'])
+        data['in'] = get_input(args['infile'])
         data['out'] = rev_sort(data['in'])
 
-        write_output(args['outfile',data['out']])
+        write_output(args['outfile'], data['out'])
 
 
     except _customException as c:
@@ -243,6 +278,8 @@ def main():
     except Exception as e:
         logging.fatal('Unexpected program error %s' % e)
 
+    logging.info('read %s' % data['in'])
+    logging.info('wrote %s' % data['out'])
 
 if __name__ == "__main__":  # pragma: no cover
     main()
