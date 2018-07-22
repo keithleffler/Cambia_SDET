@@ -4,6 +4,7 @@
 
 ## Problem Statement
 
+
 _The solution must be runnable with a Docker command (i.e., include a Dockerfile)._
 
 Imagine a CSV file called input.csv, which contains a single line of comma-separated strings. This
