@@ -1,5 +1,5 @@
 # Created by leffler at 7/21/18
-Feature: Program entry and exit
+Feature: User interaction with the program from the command line
 
   In oder to sort comma separated values in an input file and write the results to an output file,
 
@@ -11,13 +11,13 @@ Feature: Program entry and exit
     Given the input file exists
     And user can read the input file
     And the user can write to the output path
-    And output file does not exist
+    And the output file does not exist
 
     When the user runs the program with example input
 
-    Then  the output file should contain example output
+    Then  the output file should contain the example output
 
-  Scenario: An output file exists and should be overwritten.
+  Scenario: An output file exists and should be overwritten when the program runs.
 
     Given an output file already exists
     And the user can write to the output file
@@ -33,7 +33,7 @@ Feature: Program entry and exit
 
     When the user runs the program with example input
 
-    Then the program should tell the user the file does not exist.
+    Then the program should tell the user the file does not exist
 
   Scenario: Input file exists but user does not have read permission.
 
@@ -42,13 +42,13 @@ Feature: Program entry and exit
 
     When the user runs the program with example input
 
-    Then the program should tell the user that the user does not have adequate permission to read the input file.
+    Then the program should tell the user that "she" does not have adequate permission to "read the input file"
 
   Scenario: User does not have write permissions for the output location.
 
      Given the user does not have write permission to the output path
 
-     When the user runs the program with example output
+     When the user runs the program with example input
 
-     Then the program should tell the user that the user does not have adequate permission to write the output file.
+     Then the program should tell the user that "he" does not have adequate permission to "write the output file"
 

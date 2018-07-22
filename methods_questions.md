@@ -1,4 +1,6 @@
-## Methods questions.
+## Method
+
+[Return to README](./README.md#Cambia_SDET)
 
 1. _What’s the right role for QA in the software development process?_
 1. _As a QA person, you have 2 weeks to prepare before your team starts writing software. What do
@@ -10,3 +12,5 @@ testing. Dedicated teams are handling performance and security testing, so you d
 is always the case in the real world, you don’t have time to test everything. What factors do you
 think about as you decide where to focus your testing efforts? How do you decide what not to
 test?_
+
+[Return to README](./README.md#Cambia_SDET)
