@@ -18,7 +18,7 @@ Feature: Sort a CSV string in descending order.
     Then the output should be "Stockholm,Oslo,Copenhagen"
 
 
-  Scenario: Leading Spaces in input.
+  Scenario: Leading Spaces in the input.
     Given the input file exists
     And   the user has permission to read the input file
     And   the user can write to the output file
@@ -29,7 +29,7 @@ Feature: Sort a CSV string in descending order.
 
     But the programmer should ask for clarification of "How should leading spaces be handled?"
 
-  Scenario: Internal Spaces in Input
+  Scenario: Internal Spaces in the Input
     Given the input file exists
     And   the user has permission to read the input file
     And   the user can write to the output file

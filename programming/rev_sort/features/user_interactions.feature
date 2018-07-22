@@ -17,7 +17,7 @@ Feature: Program entry and exit
 
     Then  the output file should contain example output
 
-  Scenario: Previous output file exists. The file should be overwritten.
+  Scenario: An output file exists and should be overwritten.
 
     Given an output file already exists
     And the user can write to the output file
