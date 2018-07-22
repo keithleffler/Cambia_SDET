@@ -10,6 +10,15 @@ class _custonException(Exception):
     pass
 
 
+class notImplemented(_custonException):
+    '''
+    Exception class to create not-implemented failures during TDD. Helps avoid developer head-scratching and overall confusion.
+    '''
+
+    def __init__(self,method,*args,**kwargs):
+        msg = 'Method %s not implemented, but was called anyway.  Please implement.' % method
+        _custonException.__init__(self,msg,*args,**kwargs)
+
 class codeException(_custonException):
     '''
     Exception class to handle assertions in code, as opposed to other types of issues.
@@ -41,19 +50,44 @@ class outputException(_custonException):
 
 
 def check_input_file(filename):
-    # TODO: Write a function to check existence of input file.
-    #  Raise an exception if not OK
+    """
+    Check that the input file can be used by the progoram
+    :param filename:
+    :return: True if all checks succeed.  Otherwise raise an exceptoin
+    """
+
+    def check_existence():      # TODO: complete this function
+        '''
+        Check that the input file exists
+        :return:
+        '''
+        raise notImplemented('check_input_file.check_existence')
+
+    def check_is_readable():    # TODO: and also complete this one.
+        '''
+        Check that the input file is readable
+        :return:
+        '''
+        raise notImplemented('check_input_file.check_is_readable')
+
+    check_existence()
+    check_is_readable()
 
     return True
 
 
 def check_output_path(filename):
-    # TODO: Write a function to check that output is possible.
-    # path exists,
-    # permissions are OK to write to this locaion,
-    # file can be over-written if it exists.
-    # Raise exception if not OK
 
+    '''
+    Check that the output path / file are useable by the program.
+    :param filename:
+    :return:
+    '''
+
+    def check_is_writable():    # TODO: complete this function
+        raise notImplemented('check_output_path.check_is_writable')
+
+    check_is_writable()
     return True
 
 
@@ -87,9 +121,18 @@ def get_input(infile):
 
     # TODO - Add check that file is only one line.
     # Fail if this isn't so.
+    def check_data_is_valid(data):
+        raise notImplemented('get_input.check_data_is_valid')
 
     try:
-        assert False
+        with open(infile,'r') as f:
+            data = f.readlines()
+        check_data_is_valid(data)
+        return data[0]
+
+    except notImplemented:
+        raise
+
     except Exception as e:
         raise codeException('Code assertion, method get_input: %s' % e)
 
@@ -101,19 +144,22 @@ def rev_sort(s):
     :return: A CSV string, with the elements of the input CSV sorted in descending order
     '''
 
-    def clean_up(
-            s):  # TODO: expand the set of problematic substrings.  Remove leading spaces.  Preserve internal space.
-        pass
+    def preprocess(s):  # TODO: expand the set of problematic substrings.  Remove leading spaces.  Preserve internal space.
+        raise notImplemented('rev_sort.preprocess')
 
     def do_sort(s):
-        pass
+        raise notImplemented('rev_sort.do_sort')
 
     def post_process(s):
+        assert s is not None, 'Parameter s is None in rev_sort.post_process.'
         _s = '%s\n' % s
         return _s
 
     try:
-        assert False
+        _s = preprocess(s)
+        _s = do_sort(_s)
+        _s = post_process(_s)
+        return _s
 
     except Exception as e:
         raise codeException('Code assertion: method rev_sort: %s' % e)
@@ -127,7 +173,7 @@ def write_output(outfile, s):
     :return:
     '''
     try:
-        assert False
+       raise notImplemented('write_output')
 
     except Exception as e:
         raise codeException('Code assertion: method write_output: write_output: %s' % e)
@@ -136,7 +182,7 @@ def write_output(outfile, s):
 def main():
     # TODO: Add docstring
     try:
-        assert False
+        raise notImplemented('main')
 
     except codeException as c:
         logging.debug('Code exception %s' % c)
