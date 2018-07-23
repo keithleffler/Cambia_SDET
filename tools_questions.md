@@ -42,5 +42,6 @@ the best choice for an organization that relies solely on Unix and Java.
 3. Choose a language within the identified class and technology stack that the developers know well, or can learn with enough time to complete the project.
 
  _How did you choose the language for the programming exercise above?_
- The instructions specified that the exercise must be completed using Python.
+ 
+ __The instructions specified that the exercise must be completed using Python.__
  
