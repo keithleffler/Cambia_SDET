@@ -6,7 +6,7 @@
 _Write Gherkin tests for the program you wrote above. Use any Gherkin features or practices you
 want. Don’t write step definitions (i.e., the tests don’t have to be executable)._
 
-    The feature files are located in /programming/rev_sort/features
+__The feature files are located in /programming/rev_sort/features__
 
 ## Question 2
 _Explain in detail why these tests might be helpful in the future._

@@ -19,6 +19,8 @@ Here are sample contents of these two files (but your program should handle othe
 • output file: Stockholm,Oslo,Copenhagen
 
 
+## Solution
+
 Code for the solution can be found in  /programming/rev_sort
 
     The solution can be run with the following:
@@ -31,7 +33,8 @@ Code for the solution can be found in  /programming/rev_sort
 
 
 ## Gherkin questions
-* [Gherkin explainations](./gherkin.md#Gherkin)     
+* [Gherkin questions](./gherkin.md#Gherkin)     
+ 
 
 ## Tools questions
 * [Tools Questions](./tools_questions.md#Tools)             
