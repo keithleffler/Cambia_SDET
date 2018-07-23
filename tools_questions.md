@@ -1,4 +1,4 @@
-#Tools
+# Tools
 
 
 ## Question 1
@@ -35,11 +35,11 @@ __Cons__
 ## Question 3
 _How do you choose which language to use for a given task?_
 
-1. Choose a language, or at least a language type, that supports the problem space.  The Java or .NET frameworkds be good choices 
+1. Choose a language, or at least a language type, that supports the problem space.  The Java or .NET frameworks be good choices 
 for writing enterprise applications.  Though possible, low level C would involve a lot of extra work.  
 2. Once a language class is determined, choose a language that fits the customer.  Microsoft technologies may not be 
 the best choice for an organization that relies solely on Unix and Java.
-3. Choose a language that the developers know well, or can learn with enough time to complete the project.
+3. Choose a language within the identified class and technology stack that the developers know well, or can learn with enough time to complete the project.
 
  _How did you choose the language for the programming exercise above?_
  The instructions specified that the exercise must be completed using Python.
