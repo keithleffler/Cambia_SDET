@@ -1,0 +1,11 @@
+<h2 id="gherkin">Gherkin</h2>
+<p><a href="./README.md#Cambia_SDET">Return to README</a></p>
+<h2 id="problem-statement">Problem statement</h2>
+<ol style="list-style-type: decimal">
+<li><p><em>Write Gherkin tests for the program you wrote above. Use any Gherkin features or practices you want. Don’t write step definitions (i.e., the tests don’t have to be executable).</em></p>
+<p>The feature files are located in <a href="../programming/rev_sort/features">/programming/rev_sort/features</a></p></li>
+<li><p><em>Explain in detail why these tests might be helpful in the future.</em></p>
+<p>A program that sorts a single string from a fixed input file is not particularly interesting on it's own, but may be expanded in the future. I had two scenarios in mind when writing this code. The first is allowing the user the user to specify the input and output files, and moving testing of the code into an automated environment. File location issues could arise with the user on the command line, and also within a continuous integration framework. File content issues are likely to occur anytime the file is allowed to change, and the program should be able to handle differences in file content. Several of the scenarios in sorting.feature identify situations where the default sorting order may not be desirable. I've added steps asking the programmer to ask for more clarification. Once the behavior is clarified, new tests can be written and code modified to implement the desired behavior.</p>
+<p>To aid future modification, existing feature files document the current functionality of the system. Existing, passing unit tests that cover the code serve as a foundation for future modifications. These tests can be used as a foundation on which to expand the program.</p></li>
+</ol>
+<p><a href="../README.md#Cambia_SDET">Return to README</a></p>
