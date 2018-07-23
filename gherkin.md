@@ -22,7 +22,7 @@ output files.  File existence, and file permissions issues can occur here, so ad
 follow.   Files may be located locally, on a network, or in a cloud location.  Location flexibility is to be expected
 as an application grows in scope.
 
-Allowing the user to specify the input file allows the user to control file content, and the  states that the program should be able to handle different content.  
+Allowing the user to specify the input file allows the user to control file content, and the  states that the program should be able to handle different content. 
 I realized at this point that Python's sorting method may not match the users expectation, and the problem does not define 
 user expectations.  Several of the scenarios in sorting.feature  identify situations where the default sorting order may not be desirable.  
 I've added steps asking the programmer to ask for more clarification.  Projects may use other software to track requirements, but
