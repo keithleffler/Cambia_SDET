@@ -1,6 +1,6 @@
-## Tools
+#Tools
 
-[Return to README](./README.md#Cambia_SDET)
+
 ## Question 1
 _In your opinion, what’s helpful about version control systems? What’s annoying about them?_
 
@@ -44,4 +44,3 @@ the best choice for an organization that relies solely on Unix and Java.
  _How did you choose the language for the programming exercise above?_
  The instructions specified that the exercise must be completed using Python.
  
- [Return to README](./README.md#Cambia_SDET)

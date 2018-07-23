@@ -1,7 +1,7 @@
 # Methods
 
 
-[Return to README](./README.md#Cambia_SDET)
+
 
 ## Question 1. 
 
@@ -103,4 +103,4 @@ Internal (white/grey box) testing of previously stable code, that lacks good uni
 should continue to work, provided they can handle communication with newer modules and deployment in the new 
 production environment.  This is not the time to attempt to add unit tests to existing code.
 
-[Return to README](./README.md#Cambia_SDET)
+

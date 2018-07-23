@@ -31,10 +31,11 @@ Code for the solution can be found in  /programming/rev_sort
 
 
 ## Gherkin questions
+* [Gherkin explainations](./gherkin.md#Gherkin)     
 
-* [Gherkin explainations](./gherkin.md#Gherkin)     [html](./gherkin/gherkin.html)
+## Tools questions
+* [Tools Questions](./tools_questions.md#Tools)             
 
-* [Tools Questions](./tools_questions.md#Tools)             [html](./tools_questions.html)
-
-* [Testing Methods Questions](./methods_questions.md#Methods)   [html](./methods_questions.html)
+## Testing questions
+* [Testing Methods Questions](./methods_questions.md#Methods)   
 
